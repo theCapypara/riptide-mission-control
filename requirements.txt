@@ -1,0 +1,6 @@
+riptide-lib >= 0.3, < 0.4
+tornado==6.0.3
+Click==7.0
+python-prctl==1.7; sys_platform == 'linux'
+graphene==2.1.8
+docutils==0.15.2
