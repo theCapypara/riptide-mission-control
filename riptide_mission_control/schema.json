@@ -85,7 +85,7 @@
                             }
                         ],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Returns a project by name. Fails on error.",
                         "isDeprecated": false,
                         "name": "project",
                         "type": {
@@ -97,15 +97,15 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Returns all projects names registered to Riptide. Does not load projects.",
                         "isDeprecated": false,
-                        "name": "allProjects",
+                        "name": "allProjectNames",
                         "type": {
                             "kind": "LIST",
                             "name": null,
                             "ofType": {
-                                "kind": "OBJECT",
-                                "name": "Project",
+                                "kind": "SCALAR",
+                                "name": "String",
                                 "ofType": null
                             }
                         }
@@ -113,7 +113,19 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Returns all projects registered to Riptide.",
+                        "isDeprecated": false,
+                        "name": "allProjects",
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "MultiProjectsLoadResult",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Returns the system configuration.",
                         "isDeprecated": false,
                         "name": "config",
                         "type": {
@@ -130,13 +142,13 @@
                 "possibleTypes": null
             },
             {
-                "description": "TODO Description",
+                "description": "A Riptide project",
                 "enumValues": null,
                 "fields": [
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Processed configuration as loaded from YAML files. This may be cached for 120s. See mutation flush_cache to clear.",
                         "isDeprecated": false,
                         "name": "config",
                         "type": {
@@ -147,6 +159,74 @@
                                 "name": "ProjectConfiguration",
                                 "ofType": null
                             }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Path to the project file",
+                        "isDeprecated": false,
+                        "name": "path",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Whether or not the project was set-up by running the 'setup' command on CLI. Please note, that this server still allows you to perform all actions on projects, even if they are not marked as set-up.",
+                        "isDeprecated": false,
+                        "name": "isSetup",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Boolean",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Whether or not database features are available",
+                        "isDeprecated": false,
+                        "name": "dbAvailable",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Boolean",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "List of database environments, if database features are available",
+                        "isDeprecated": false,
+                        "name": "dbList",
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Name of current database environments, if database features are available",
+                        "isDeprecated": false,
+                        "name": "dbCurrent",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
                         }
                     }
                 ],
@@ -226,13 +306,13 @@
                 "possibleTypes": null
             },
             {
-                "description": "TODO Description",
+                "description": "An application that describes as set of commands and services for a Riptide project",
                 "enumValues": null,
                 "fields": [
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Processed configuration as loaded from YAML files. This may be cached for 120s. See mutation flush_cache to clear.",
                         "isDeprecated": false,
                         "name": "config",
                         "type": {
@@ -504,13 +584,13 @@
                 "possibleTypes": null
             },
             {
-                "description": "TODO Description",
+                "description": "A service object. Represents the definition and specification for a running service container.",
                 "enumValues": null,
                 "fields": [
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Processed configuration as loaded from YAML files. This may be cached for 120s. See mutation flush_cache to clear.",
                         "isDeprecated": false,
                         "name": "config",
                         "type": {
@@ -521,6 +601,86 @@
                                 "name": "ServiceConfiguration",
                                 "ofType": null
                             }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Address to reach the service at, if applicable.",
+                        "isDeprecated": false,
+                        "name": "www",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Whether or not the container for this service is currently running.",
+                        "isDeprecated": false,
+                        "name": "running",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "List of bound additional ports for this service.",
+                        "isDeprecated": false,
+                        "name": "additionalPorts",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "LIST",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "ServiceBoundAdditionalPort",
+                                    "ofType": null
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "List of paths to log files for this service",
+                        "isDeprecated": false,
+                        "name": "logFiles",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "LIST",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "ServiceBoundLogFile",
+                                    "ofType": null
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Identifier that can be used to interact with the container for this service. The format of this identifier depends on the engine being used.",
+                        "isDeprecated": false,
+                        "name": "containerName",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
                         }
                     }
                 ],
@@ -637,7 +797,7 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Additional environment variables",
                         "isDeprecated": false,
                         "name": "environment",
                         "type": {
@@ -653,7 +813,7 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Additional configuration files to mount. These files are NOT directly mounted.\nInstead they are processed and the resulting file is mounted.",
                         "isDeprecated": false,
                         "name": "config",
                         "type": {
@@ -693,7 +853,7 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Additional TCP and/or UDP ports that will be made available on the host system.\nFor details see section in\n",
                         "isDeprecated": false,
                         "name": "additionalPorts",
                         "type": {
@@ -709,7 +869,7 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Additional volumes to mount into the container for this command.",
                         "isDeprecated": false,
                         "name": "additionalVolumes",
                         "type": {
@@ -1200,12 +1360,180 @@
                                 "ofType": null
                             }
                         }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Specification depends on the database driver.",
+                        "isDeprecated": false,
+                        "name": "config",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "JSONString",
+                                "ofType": null
+                            }
+                        }
                     }
                 ],
                 "inputFields": null,
                 "interfaces": [],
                 "kind": "OBJECT",
                 "name": "ServiceConfigurationDriver",
+                "possibleTypes": null
+            },
+            {
+                "description": "Allows use of a JSON String for input / output from the GraphQL schema.\n\nUse of this type is *not recommended* as you lose the benefits of having a defined, static\nschema (one of the key benefits of GraphQL).",
+                "enumValues": null,
+                "fields": null,
+                "inputFields": null,
+                "interfaces": null,
+                "kind": "SCALAR",
+                "name": "JSONString",
+                "possibleTypes": null
+            },
+            {
+                "description": null,
+                "enumValues": null,
+                "fields": [
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Key of port, as specified in the configuration of the service.",
+                        "isDeprecated": false,
+                        "name": "key",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Human readable title, as specified in the configuration of the service.",
+                        "isDeprecated": false,
+                        "name": "title",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Port number inside the container, as specified in the configuration of the service.",
+                        "isDeprecated": false,
+                        "name": "container",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "First port number on host that Riptide will try to reserve, on host, as specified in the configuration of the service.",
+                        "isDeprecated": false,
+                        "name": "hostStart",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Actual bound port number on host. Is null if the service was never started before.",
+                        "isDeprecated": false,
+                        "name": "hostBound",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        }
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "kind": "OBJECT",
+                "name": "ServiceBoundAdditionalPort",
+                "possibleTypes": null
+            },
+            {
+                "description": null,
+                "enumValues": null,
+                "fields": [
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Type of log file. Depends on where it was specified in the configuration. Can be 'stdout', 'stderr', 'path' or 'command'",
+                        "isDeprecated": false,
+                        "name": "type",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Key of file, as specified in the configuration of the service. Not set for stdout and stderr.",
+                        "isDeprecated": false,
+                        "name": "key",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Path to the log file on the host system",
+                        "isDeprecated": false,
+                        "name": "path",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "kind": "OBJECT",
+                "name": "ServiceBoundLogFile",
                 "possibleTypes": null
             },
             {
@@ -1252,13 +1580,13 @@
                 "possibleTypes": null
             },
             {
-                "description": "TODO Description",
+                "description": "A command object. Specifies a CLI command to be executable by the user.",
                 "enumValues": null,
                 "fields": [
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Processed configuration as loaded from YAML files. This may be cached for 120s. See mutation flush_cache to clear.",
                         "isDeprecated": false,
                         "name": "config",
                         "type": {
@@ -1334,7 +1662,7 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Additional volumes to mount into the container for this command.",
                         "isDeprecated": false,
                         "name": "additionalVolumes",
                         "type": {
@@ -1350,7 +1678,7 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Additional environment variables",
                         "isDeprecated": false,
                         "name": "environment",
                         "type": {
@@ -1524,6 +1852,126 @@
                 "possibleTypes": null
             },
             {
+                "description": null,
+                "enumValues": null,
+                "fields": [
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "List of errors",
+                        "isDeprecated": false,
+                        "name": "errors",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "LIST",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "ProjectLoadError",
+                                    "ofType": null
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "List of successfully loaded projects",
+                        "isDeprecated": false,
+                        "name": "projects",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "LIST",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "Project",
+                                    "ofType": null
+                                }
+                            }
+                        }
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "kind": "OBJECT",
+                "name": "MultiProjectsLoadResult",
+                "possibleTypes": null
+            },
+            {
+                "description": null,
+                "enumValues": null,
+                "fields": [
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": null,
+                        "isDeprecated": false,
+                        "name": "name",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "ID",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": null,
+                        "isDeprecated": false,
+                        "name": "error",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": null,
+                        "isDeprecated": false,
+                        "name": "path",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "kind": "OBJECT",
+                "name": "ProjectLoadError",
+                "possibleTypes": null
+            },
+            {
+                "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
+                "enumValues": null,
+                "fields": null,
+                "inputFields": null,
+                "interfaces": null,
+                "kind": "SCALAR",
+                "name": "ID",
+                "possibleTypes": null
+            },
+            {
                 "description": "\n    System configuration. Contains basic settings\n    for Riptide.\n\n    After loading a :class:`riptide.config.document.project.Project`,\n    the project must be inserted into the ``project`` key.\n\n    ",
                 "enumValues": null,
                 "fields": [
@@ -1593,18 +2041,6 @@
                                     "ofType": null
                                 }
                             }
-                        }
-                    },
-                    {
-                        "args": [],
-                        "deprecationReason": null,
-                        "description": "If a project is loaded, Riptide inserts the project here. Do not manually insert a project\ninto the actual system configuration file.",
-                        "isDeprecated": false,
-                        "name": "project",
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "Project",
-                            "ofType": null
                         }
                     }
                 ],
@@ -1733,12 +2169,39 @@
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Flushes the project cache. Loaded projects are normally cached for 120s.",
                         "isDeprecated": false,
-                        "name": "wip",
+                        "name": "flushCache",
                         "type": {
                             "kind": "SCALAR",
-                            "name": "ID",
+                            "name": "Boolean",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "name",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Remove a registered project from Riptide, by name. Flushes cache.",
+                        "isDeprecated": false,
+                        "name": "removeProject",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Boolean",
                             "ofType": null
                         }
                     }
@@ -1750,28 +2213,325 @@
                 "possibleTypes": null
             },
             {
-                "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
-                "enumValues": null,
-                "fields": null,
-                "inputFields": null,
-                "interfaces": null,
-                "kind": "SCALAR",
-                "name": "ID",
-                "possibleTypes": null
-            },
-            {
-                "description": null,
+                "description": "Most subscriptions are used as \"asynchronous\" mutations (those returning ResultStep).\nThey are used in places, where mutations might take too long.\n\nGenerally, subscribing to any of the \"asynchronous\" mutations will start executing them. There are no\nchecks for multiple processes for the same query running at the same time. Subscribing multiple times\nWILL execute the operation again.\n\nEach of these subscriptions sends progress reports and signals when it's done / an error occurred.",
                 "enumValues": null,
                 "fields": [
                     {
                         "args": [],
                         "deprecationReason": null,
-                        "description": null,
+                        "description": "Update all Riptide repositories and reload the system configuration. Please note any error messages during the update!IMPORTANT: Currently updating repositories freezes when using reposthat require interactive authentification.",
                         "isDeprecated": false,
-                        "name": "wip",
+                        "name": "updateRepositories",
                         "type": {
-                            "kind": "SCALAR",
-                            "name": "ID",
+                            "kind": "OBJECT",
+                            "name": "ResultStep",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "projectName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Update all images used by the specified project",
+                        "isDeprecated": false,
+                        "name": "updateImages",
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ResultStep",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "projectName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "DB environment to copy",
+                                "name": "source",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "Name of the new database environment",
+                                "name": "target",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "Whether or not to switch to the new environment afterwards If not given: True",
+                                "name": "switch",
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "Boolean",
+                                    "ofType": null
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Copy a database environment to a new destination, if database features are available for project",
+                        "isDeprecated": false,
+                        "name": "projectDbCopy",
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ResultStep",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "projectName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "Name of the new database environment",
+                                "name": "newName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "Whether or not to switch to the new environment afterwards. If not given: True",
+                                "name": "switch",
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "Boolean",
+                                    "ofType": null
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Create a new empty database environment, if database features are available for project",
+                        "isDeprecated": false,
+                        "name": "projectDbNew",
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ResultStep",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "projectName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "Name of the database environment to switch to",
+                                "name": "name",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Switch to a database environment, if database features are available for project",
+                        "isDeprecated": false,
+                        "name": "projectDbSwitch",
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ResultStep",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "projectName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "Name of the database environment to delete",
+                                "name": "name",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Deletes a database environment, if database features are available for project",
+                        "isDeprecated": false,
+                        "name": "projectDbDrop",
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ResultStep",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "projectName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "List of services to start, if not given starts all",
+                                "name": "services",
+                                "type": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Start services of a project. Services that are already started are NOT restarted.",
+                        "isDeprecated": false,
+                        "name": "projectStart",
+                        "type": {
+                            "kind": "UNION",
+                            "name": "StartStopResultStep",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [
+                            {
+                                "defaultValue": null,
+                                "description": null,
+                                "name": "projectName",
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            },
+                            {
+                                "defaultValue": null,
+                                "description": "List of services to stop, if not given stops all.",
+                                "name": "services",
+                                "type": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "String",
+                                        "ofType": null
+                                    }
+                                }
+                            }
+                        ],
+                        "deprecationReason": null,
+                        "description": "Stop services of a project.",
+                        "isDeprecated": false,
+                        "name": "projectStop",
+                        "type": {
+                            "kind": "UNION",
+                            "name": "StartStopResultStep",
                             "ofType": null
                         }
                     }
@@ -1780,6 +2540,192 @@
                 "interfaces": [],
                 "kind": "OBJECT",
                 "name": "Subscription",
+                "possibleTypes": null
+            },
+            {
+                "description": "A single status update of an asynchronous mutation.\n\nClients should stop subscribing when is_end is true!",
+                "enumValues": null,
+                "fields": [
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Total number of steps, may change.",
+                        "isDeprecated": false,
+                        "name": "steps",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Current step number.",
+                        "isDeprecated": false,
+                        "name": "currentStep",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Human-readable text describing the current state",
+                        "isDeprecated": false,
+                        "name": "text",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Whether or not this is the last message",
+                        "isDeprecated": false,
+                        "name": "isEnd",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            }
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Whether or not this message indicates an error state. Only true, if is_end is also true.",
+                        "isDeprecated": false,
+                        "name": "isError",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            }
+                        }
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "kind": "OBJECT",
+                "name": "ResultStep",
+                "possibleTypes": null
+            },
+            {
+                "description": "A status update for the project start/stop subscriptions\n\nUsually StartStopProgressStep is sent, to indicate progress starting a single service.\n\nStartStopEndStep is sent as last update. After that the client should stop subscribing.",
+                "enumValues": null,
+                "fields": null,
+                "inputFields": null,
+                "interfaces": null,
+                "kind": "UNION",
+                "name": "StartStopResultStep",
+                "possibleTypes": [
+                    {
+                        "kind": "OBJECT",
+                        "name": "StartStopProgressStep",
+                        "ofType": null
+                    },
+                    {
+                        "kind": "OBJECT",
+                        "name": "StartStopEndStep",
+                        "ofType": null
+                    }
+                ]
+            },
+            {
+                "description": "A group of status update for starting multiple services. Each one has it's own progress step count.\n\nClients should NOT stop subscribing if child ResultSteps is_end is true, this\nonly indicates that single services started.",
+                "enumValues": null,
+                "fields": [
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Name of the service, that the current state update belongs to",
+                        "isDeprecated": false,
+                        "name": "service",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "State update for the service",
+                        "isDeprecated": false,
+                        "name": "state",
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ResultStep",
+                            "ofType": null
+                        }
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "kind": "OBJECT",
+                "name": "StartStopProgressStep",
+                "possibleTypes": null
+            },
+            {
+                "description": "The end of a start/stop project process.\nServices that could not be started have entries in the errors.",
+                "enumValues": null,
+                "fields": [
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "Error message on fatal errors.",
+                        "isDeprecated": false,
+                        "name": "errorString",
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        }
+                    },
+                    {
+                        "args": [],
+                        "deprecationReason": null,
+                        "description": "If true, the service starting failed fatally. Even services that are not in errors may not be started.",
+                        "isDeprecated": false,
+                        "name": "isFatalError",
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            }
+                        }
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "kind": "OBJECT",
+                "name": "StartStopEndStep",
                 "possibleTypes": null
             },
             {

@@ -11,8 +11,8 @@ class Registry(NamedTuple):
     engine: Optional[AbstractEngine]
 
 
-registy = Registry(system_config=None, engine=None)
+registry: Registry = Registry(system_config=None, engine=None)
 
 
-def registry():
+def registry() -> Registry:
     return registry

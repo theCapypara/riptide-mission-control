@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from collections import OrderedDict
 from graphql import graphql, format_error
+from graphql.execution import ExecutionResult
 from tornado import websocket
 from tornado.escape import json_decode, json_encode
 from tornado.log import app_log
@@ -126,7 +127,8 @@ class GQLSubscriptionHandler(websocket.WebSocketHandler):
 
     def on_close(self):
         app_log.info('close socket %s', self)
-        self.sockets.remove(self)
+        if self in self.sockets:
+            self.sockets.remove(self)
         for i in self.subscriptions:
             self.subscriptions[i].dispose()
         self.subscriptions = {}
@@ -172,6 +174,9 @@ class GQLSubscriptionHandler(websocket.WebSocketHandler):
             execution_result = graphql(
                 self.schema, **params, allow_subscriptions=True
             )
+            if isinstance(execution_result, ExecutionResult) and len(execution_result.errors) > 0:
+                self.send_error(op_id, execution_result.errors)
+                return
             assert isinstance(
                 execution_result, Observable), "A subscription must return an observable"
             subscription = execution_result.subscribe(SubscriptionObserver(

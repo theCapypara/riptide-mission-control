@@ -3,6 +3,7 @@ from typing import Type
 
 from riptide.config.document.command import Command as CommandDoc
 from riptide_mission_control.graphql_entities.document.converter import create_graphl_document
+from riptide_mission_control import PROJECT_CACHE_TIMEOUT
 
 ref: Type[graphene.ObjectType] = None
 NormalCommandConfiguration = create_graphl_document(CommandDoc, "NormalCommandConfiguration", CommandDoc.__doc__, CommandDoc.schema_normal)
@@ -24,7 +25,9 @@ class CommandGraphqlDocument(graphene.ObjectType):
 
     config = graphene.Field(
         CommandConfiguration,
-        required=True, description="Processed configuration as loaded from YAML files"
+        required=True, description=f"Processed configuration as loaded from YAML files. "
+                                   f"This may be cached for {PROJECT_CACHE_TIMEOUT}s. "
+                                   f"See mutation flush_cache to clear."
     )
 
     def resolve_config(parent, info):

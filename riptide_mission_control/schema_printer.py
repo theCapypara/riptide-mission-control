@@ -27,5 +27,5 @@ def main():
         json.dump(introspection_schema, f, indent=4, sort_keys=True)
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     main()

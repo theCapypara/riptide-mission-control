@@ -9,7 +9,7 @@ with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='riptide-mission-control',
-    version='0.3.0',
+    version='0.3.1',
     packages=find_packages(),
     package_data={
         'tornadoql': ['static/graphiql.html'],
@@ -34,6 +34,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     entry_points='''
         [console_scripts]

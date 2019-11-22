@@ -80,8 +80,16 @@ type EntryString {
 
 scalar GenericScalar
 
+scalar JSONString
+
+type MultiProjectsLoadResult {
+  errors: [ProjectLoadError]!
+  projects: [Project]!
+}
+
 type Mutation {
-  wip: ID
+  flushCache: Boolean
+  removeProject(name: String!): Boolean
 }
 
 type NormalCommandConfiguration {
@@ -101,6 +109,11 @@ type NormalCommandConfigurationAdditionalVolumes {
 
 type Project {
   config: ProjectConfiguration!
+  path: String!
+  isSetup: Boolean
+  dbAvailable: Boolean
+  dbList: [String]
+  dbCurrent: String
 }
 
 type ProjectConfiguration {
@@ -109,14 +122,48 @@ type ProjectConfiguration {
   app: App!
 }
 
+type ProjectLoadError {
+  name: ID!
+  error: String!
+  path: String!
+}
+
 type Query {
   project(name: String!): Project
-  allProjects: [Project]
+  allProjectNames: [String]
+  allProjects: MultiProjectsLoadResult
   config: SystemConfiguration
+}
+
+type ResultStep {
+  steps: Int!
+  currentStep: Int!
+  text: String!
+  isEnd: Boolean!
+  isError: Boolean!
 }
 
 type Service {
   config: ServiceConfiguration!
+  www: String
+  running: Boolean!
+  additionalPorts: [ServiceBoundAdditionalPort]!
+  logFiles: [ServiceBoundLogFile]!
+  containerName: String
+}
+
+type ServiceBoundAdditionalPort {
+  key: String!
+  title: String!
+  container: Int!
+  hostStart: Int!
+  hostBound: Int
+}
+
+type ServiceBoundLogFile {
+  type: String!
+  key: String
+  path: String!
 }
 
 type ServiceConfiguration {
@@ -157,6 +204,7 @@ type ServiceConfigurationConfig {
 
 type ServiceConfigurationDriver {
   name: String!
+  config: JSONString!
 }
 
 type ServiceConfigurationLogging {
@@ -166,8 +214,27 @@ type ServiceConfigurationLogging {
   commands: [EntryString]
 }
 
+type StartStopEndStep {
+  errorString: String
+  isFatalError: Boolean!
+}
+
+type StartStopProgressStep {
+  service: String
+  state: ResultStep
+}
+
+union StartStopResultStep = StartStopProgressStep | StartStopEndStep
+
 type Subscription {
-  wip: ID
+  updateRepositories: ResultStep
+  updateImages(projectName: String!): ResultStep
+  projectDbCopy(projectName: String!, source: String!, target: String!, switch: Boolean): ResultStep
+  projectDbNew(projectName: String!, newName: String!, switch: Boolean): ResultStep
+  projectDbSwitch(projectName: String!, name: String!): ResultStep
+  projectDbDrop(projectName: String!, name: String!): ResultStep
+  projectStart(projectName: String!, services: [String]): StartStopResultStep
+  projectStop(projectName: String!, services: [String]): StartStopResultStep
 }
 
 type SystemConfiguration {
@@ -175,7 +242,6 @@ type SystemConfiguration {
   updateHostsFile: Boolean!
   engine: String!
   repos: [String]!
-  project: Project
 }
 
 type SystemConfigurationProxy {
