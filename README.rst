@@ -26,7 +26,7 @@
 .. _docker_images:  https://github.com/Parakoopa/riptide-docker-images
 .. _mission_control: https://github.com/Parakoopa/riptide-mission-control
 
-|build| |docs|
+|build| |docs| |slack|
 
 .. |build| image:: https://jenkins.riptide.parakoopa.de/buildStatus/icon?job=riptide-mission-control%2Fmaster
     :target: https://jenkins.riptide.parakoopa.de/blue/organizations/jenkins/riptide-mission-control/activity
@@ -35,6 +35,10 @@
 .. |docs| image:: https://readthedocs.org/projects/riptide-docs/badge/?version=latest
     :target: https://riptide-docs.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
+
+.. |slack| image:: https://slack.riptide.parakoopa.de/badge.svg
+    :target: https://slack.riptide.parakoopa.de
+    :alt: Join our Slack workspace
 
 Riptide is a set of tools to manage development environments for web applications.
 It's using container virtualization tools, such as `Docker <https://www.docker.com/>`_
@@ -47,10 +51,14 @@ the project may have.
 
 It can be installed via pip by installing ``riptide-mission-control``.
 
-Mission control (GraphQL API server)
+Mission Control (GraphQL API server)
 ------------------------------------
 
-This repository provides a GraphQL API server to interact with Riptide via API.
+This project provides a GraphQL API server to interact with Riptide via API. It can
+either be started on it's own with the command ``riptide_mc`` or used via ``riptide-proxy``.
+
+In the future is project will also contain a web-based GUI for controlling various aspects of Riptide, using
+the GraphQL API.
 
 This repository is based on `IlyaRadinsky/tornadoql <https://github.com/IlyaRadinsky/tornadoql/>`_ @ ac59f12.
 
