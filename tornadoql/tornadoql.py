@@ -17,6 +17,12 @@ SETTINGS = {
 }
 
 
+class FallbackHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Riptide Mission Control.")
+
+
+
 class GraphQLHandler(GQLHandler):
     @property
     def schema(self):
@@ -53,19 +59,3 @@ class GraphiQLHandler(tornado.web.RequestHandler):
 
 class TornadoQL(object):
     schema = None
-    endpoints = [
-        (r'/subscriptions', GraphQLSubscriptionHandler, dict(opts=SETTINGS)),
-        (r'/graphql', GraphQLHandler),
-        (r'/graphiql', GraphiQLHandler)
-    ]
-
-    @staticmethod
-    def start(schema, app_endpoints=None, port=PORT, settings=SETTINGS):
-        if app_endpoints is None:
-            app_endpoints = TornadoQL.endpoints
-
-        TornadoQL.schema = schema
-        app = tornado.web.Application(app_endpoints, **settings)
-
-        app.listen(port)
-        tornado.ioloop.IOLoop.current().start()

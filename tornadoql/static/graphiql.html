@@ -68,7 +68,11 @@
         }
       }
 
-      var subscriptionsClient = new window.SubscriptionsTransportWs.SubscriptionClient('ws://' + window.location.host + '/subscriptions', {
+      var protocol = 'ws://';
+      if (window.location.protocol === 'https:') {
+        protocol = 'wss://';
+      }
+      var subscriptionsClient = new window.SubscriptionsTransportWs.SubscriptionClient(protocol + window.location.host + '/subscriptions', {
         reconnect: true
       });
 
