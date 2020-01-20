@@ -9,7 +9,7 @@ with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='riptide-mission-control',
-    version='0.3.1',
+    version='0.5.0',
     packages=find_packages(),
     package_data={
         'tornadoql': ['static/graphiql.html'],
@@ -20,7 +20,7 @@ setup(
     long_description_content_type='text/x-rst',
     url='https://github.com/Parakoopa/riptide-proxy/',
     install_requires=[
-        'riptide-lib >= 0.3, < 0.4',
+        'riptide-lib >= 0.5, < 0.6',
         'tornado >= 6.0',
         'Click >= 7.0',
         'graphene >= 2.0, < 3.0',
